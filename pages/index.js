@@ -3,6 +3,7 @@ import Box from '../src/components/Box';
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
 import { useState } from 'react';
+import BoxRelations from '../src/components/BoxRelations';
 
 function ProfileSidebar(props) {
   return (
@@ -26,18 +27,49 @@ function ProfileSidebar(props) {
 export default function Home() {
   const githubUser = 'eduardoranzzani';
   const [comunidades, setComunidades] = useState([{
-    id: 123123,
+    id: 1,
     title: 'Eu odeio acordar cedo',
     image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
     link: 'https://www.orkut.br.com/MainCommunity?cmm=10000'
+  },
+  {
+    id: 2,
+    title: 'Teste',
+    image: 'https://picsum.photos/200?123',
+    link: ''
   }]);
-  const pessoasFavoritas = [
-    'juunegreiros',
-    'omariosouto',
-    'peas',
-    'rafaballerini',
-    'marcobrunodev',
-    'felipefialho'
+
+  const pessoasFavoritas = [{
+    id: 1,
+    title: 'juunegreiros',
+    image: 'https://github.com/juunegreiros.png',
+    link: '/users/juunegreiros'
+  }, {
+    id: 2,
+    title: 'omariosouto',
+    image: 'https://github.com/omariosouto.png',
+    link: '/users/omariosouto'
+  }, {
+    id: 3,
+    title: 'peas',
+    image: 'https://github.com/peas.png',
+    link: '/users/peas'
+  }, {
+    id: 4,
+    title: 'rafaballerini',
+    image: 'https://github.com/rafaballerini.png',
+    link: '/users/rafaballerini'
+  }, {
+    id: 5,
+    title: 'marcobrunodev',
+    image: 'https://github.com/marcobrunodev.png',
+    link: '/users/marcobrunodev'
+  }, {
+    id: 6,
+    title: 'felipefialho',
+    image: 'https://github.com/felipefialho.png',
+    link: '/users/felipefialho'
+  }
   ];
 
   return (
@@ -62,8 +94,8 @@ export default function Home() {
               e.preventDefault();
 
               const dadosForm = new FormData(e.target);
-              console.log("Campos: ", );
-              console.log("Campos: ", );
+              console.log("Campos: ",);
+              console.log("Campos: ",);
 
               const comunidade = {
                 id: new Date().toISOString(),
@@ -98,7 +130,7 @@ export default function Home() {
         </div>
 
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
-          <ProfileRelationsBoxWrapper>
+          {/* <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Pessoas da Comunidade ({pessoasFavoritas.length})
             </h2>
@@ -115,8 +147,7 @@ export default function Home() {
                 )
               })}
             </ul>
-          </ProfileRelationsBoxWrapper>
-
+          </ProfileRelationsBoxWrapper> 
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Comunidades ({comunidades.length})
@@ -134,7 +165,11 @@ export default function Home() {
                 )
               })}
             </ul>
-          </ProfileRelationsBoxWrapper>
+          </ProfileRelationsBoxWrapper> */}
+
+          <BoxRelations title="Pessoas da Comunidade" list={pessoasFavoritas} />
+          <BoxRelations title="Comunidades" list={comunidades} />
+
         </div>
       </MainGrid>
     </>
