@@ -8,7 +8,9 @@ import BoxRelations from '../src/components/BoxRelations';
 function ProfileSidebar(props) {
   return (
     <Box as="aside">
-      <img src={`https://github.com/${props.githubUser}.png`} style={{ borderRadius: '8px' }} />
+      <img src={`https://github.com/${props.githubUser}.png`}
+        alt={props.githubUser}
+        style={{ borderRadius: '8px' }} />
 
       <hr />
       <p>
