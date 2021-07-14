@@ -48,7 +48,7 @@ export function AlurakutMenu({ githubUser }) {
           {!isMenuOpen && <img src={`${BASE_URL}/icons/menu-closed.svg?v=${v}`} />}
         </button>
       </div>
-      <AlurakutMenuProfileSidebar githubUser={githubUser} />
+      {githubUser ? <AlurakutMenuProfileSidebar githubUser={githubUser} /> : ''}
     </AlurakutMenu.Wrapper>
   );
 }

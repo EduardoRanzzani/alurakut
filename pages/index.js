@@ -8,15 +8,15 @@ import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet 
 function ProfileSidebar(props) {
   return (
     <Box as="aside">
-      <img src={`https://github.com/${props.githubUser}.png`}
-        alt={props.githubUser}
+      <img src={props.githubUser.avatar_url}
+        alt={props.githubUser.name}
         style={{ borderRadius: '8px' }} />
 
       <hr />
 
       <p>
-        <a className="boxLink" href={`https://github.com/${props.githubUser}`} target="_blank">
-          @{props.githubUser}
+        <a className="boxLink" href={props.githubUser.url} target="_blank">
+          @{props.githubUser.login}
         </a>
       </p>
 
@@ -84,7 +84,7 @@ export default function Home() {
       <AlurakutMenu githubUser={githubUser.login} />
       <MainGrid>
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
-          <ProfileSidebar githubUser={githubUser.login} />
+          <ProfileSidebar githubUser={githubUser} />
         </div>
 
         <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
