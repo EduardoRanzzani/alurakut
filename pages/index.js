@@ -49,25 +49,33 @@ export default function Home() {
   const username = 'eduardoranzzani';
 
   const [githubUser, setGithubUser] = useState(githubUserState);
-  const [pessoas, setPessoas] = useState([githubUserState]);
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
   const [comunidades, setComunidades] = useState([communityState]);
 
   useEffect(() => {
     getUserData();
+    getFollowers();
+    getFollowing();
   }, []);
 
   function getUserData() {
     axios.get(`${apiUrl}${username}`).then(response => {
       setGithubUser(response.data);
-
-      const followers_url = response.data.followers_url;
-      getFollowers(followers_url);
     }, console.error);
   }
 
-  function getFollowers(url) {
+  function getFollowers() {
+    const url = `${apiUrl}${username}/followers`;
     axios.get(url).then(response => {
-      setPessoas(response.data);
+      setFollowers(response.data);
+    }, console.error);
+  }
+
+  function getFollowing() {
+    const url = `${apiUrl}${username}/following`;
+    axios.get(url).then(response => {
+      setFollowing(response.data);
     }, console.error);
   }
 
@@ -95,6 +103,7 @@ export default function Home() {
                 id: new Date().toISOString(),
                 title: dadosForm.get('title'),
                 image: dadosForm.get('image'),
+                link: dadosForm.get('link')
               };
 
               const comunidadesAtualizadas = [...comunidades, comunidade];
@@ -108,11 +117,20 @@ export default function Home() {
                   type="text"
                 />
               </div>
+
               <div>
                 <input
                   placeholder="Coloque uma URL para usarmos de capa"
                   name="image"
                   aria-label="Coloque uma URL para usarmos de capa"
+                />
+              </div>
+
+              <div>
+                <input
+                  placeholder="Coloque uma URL para acessar a comunidade"
+                  name="link"
+                  aria-label="Coloque uma URL para acessar a comunidade"
                 />
               </div>
 
@@ -124,46 +142,9 @@ export default function Home() {
         </div>
 
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
-          {/* <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">
-              Pessoas da Comunidade ({pessoasFavoritas.length})
-            </h2>
-
-            <ul>
-              {pessoasFavoritas.map((pessoa) => {
-                return (
-                  <li key={pessoa}>
-                    <a href={`/users/${pessoa}`} key={pessoa}>
-                      <img src={`https://github.com/${pessoa}.png`} />
-                      <span>{pessoa}</span>
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </ProfileRelationsBoxWrapper> 
-          <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">
-              Comunidades ({comunidades.length})
-            </h2>
-
-            <ul>
-              {comunidades.map((comunidade) => {
-                return (
-                  <li key={comunidade.id}>
-                    <a href={comunidade.link} key={comunidade.title} target="_blank">
-                      <img src={comunidade.image} />
-                      <span>{comunidade.title}</span>
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </ProfileRelationsBoxWrapper> */}
-
-          <BoxRelations title="Pessoas da Comunidade" list={pessoas} community="false" />
-          <BoxRelations title="Comunidades" list={comunidades} community="true" />
-
+          <BoxRelations title="Seguindo" list={following} community={false} />
+          <BoxRelations title="Seguidores" list={followers} community={false} />
+          <BoxRelations title="Comunidades" list={comunidades} community={true} />
         </div>
       </MainGrid>
     </>

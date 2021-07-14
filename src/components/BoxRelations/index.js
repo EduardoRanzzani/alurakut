@@ -2,6 +2,8 @@ import { ProfileRelationsBoxWrapper } from "../ProfileRelations";
 
 
 export default function BoxRelations(props) {
+  const apiUrl = 'https://api.github.com/users/';
+
   return (
     <ProfileRelationsBoxWrapper>
       <h2 className="smallTitle">
@@ -9,8 +11,8 @@ export default function BoxRelations(props) {
       </h2>
 
       <ul>
-        {props.list.map((itemAtual) => {
-          if (props.community == "true") {
+        {props.list.slice(0, 6).map((itemAtual) => {
+          if (props.community) {
             return (
               <li key={itemAtual.id}>
                 <a href={itemAtual.link} key={itemAtual.title} target="_blank">
@@ -34,7 +36,6 @@ export default function BoxRelations(props) {
     </ProfileRelationsBoxWrapper>
   );
 }
-
 
 // {
 //   props.list.map((itemAtual) => {
