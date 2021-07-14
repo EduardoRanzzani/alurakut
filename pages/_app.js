@@ -11,7 +11,10 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: sans-serif;
-    background-color: #D9E6F6;
+    background-image: url('https://www.toptal.com/designers/subtlepatterns/patterns/double-bubble-dark.png');
+    /* background-repeat: no-repeat; */
+    /* background-color: #ccc; */
+    /* background-color: #D9E6F6; */
   }
 
   #__next {

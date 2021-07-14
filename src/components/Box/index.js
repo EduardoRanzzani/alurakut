@@ -4,7 +4,7 @@ const Box = styled.div`
   background: #fff;
   border-radius: 8px;
   padding: 16px;
-
+  
   /* CSS pré pronto */ 
   margin-bottom: 10px;
   .boxLink {
@@ -54,7 +54,8 @@ const Box = styled.div`
     padding: 8px 12px;
     color: #fff;
     border-radius: 10000px;
-    background-color: #6f92bb;
+    background-color: #a1a1a1;
+    /* background-color: #6f92bb; */
   }
 `;
 
