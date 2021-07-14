@@ -9,8 +9,7 @@ export default function BoxRelations(props) {
       </h2>
 
       <ul>
-        {console.log(props.list)}
-        {/* {props.list.map((itemAtual) => {
+        {props.list.map((itemAtual) => {
           return (
             <li key={itemAtual.id}>
               <a href={itemAtual.html_url} key={itemAtual.id} target="_blank">
@@ -19,7 +18,7 @@ export default function BoxRelations(props) {
               </a>
             </li>
           );
-        })} */}
+        })}
       </ul>
     </ProfileRelationsBoxWrapper>
   );
