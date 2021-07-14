@@ -39,7 +39,7 @@ export function AlurakutMenu({ githubUser }) {
             Sair
           </a>
           <div>
-            <input placeholder="Pesquisar no Orkut" />
+            <input placeholder="Pesquisar no Alurakut" />
           </div>
         </nav>
 
@@ -248,12 +248,12 @@ export function OrkutNostalgicIconSet(props) {
   return (
     <OrkutNostalgicIconSet.List>
       {[
-        { name: 'Recados', slug: 'recados', icon: 'book' },
-        { name: 'Fotos', slug: 'fotos', icon: 'camera' },
-        { name: 'Videos', slug: 'videos', icon: 'video-camera' },
-        { name: 'Fãs', slug: 'fas', icon: 'star' },
-        { name: 'Mensagens', slug: 'mensagens', icon: 'email' },
-      ].map(({ name, slug, icon }) => (
+        { name: 'Recados', slug: 'recados', icon: 'book', cont: 0 },
+        { name: 'Fotos', slug: 'fotos', icon: 'camera', cont: 0 },
+        { name: 'Videos', slug: 'videos', icon: 'video-camera', cont: 0 },
+        { name: 'Fãs', slug: 'fas', icon: 'star', cont: 0 },
+        { name: 'Mensagens', slug: 'mensagens', icon: 'email', cont: 0 },
+      ].map(({ name, slug, icon, cont }) => (
         <li key={`orkut__icon_set__${slug}`}>
           <span style={{ gridArea: 'title' }} className="OrkutNostalgicIconSet__title">
             {name}
@@ -265,11 +265,11 @@ export function OrkutNostalgicIconSet(props) {
         </li>
       ))}
       {[
-        { name: 'Confiável', slug: 'confiavel', icon: 'smile' },
-        { name: 'Legal', slug: 'legal', icon: 'cool' },
-        { name: 'Sexy', slug: 'sexy', icon: 'heart' },
-      ].map(({ name, slug, icon }) => {
-        const total = props[slug] ? props[slug] : 2;
+        { name: 'Confiável', slug: 'confiavel', icon: 'smile', cont: 0 },
+        { name: 'Legal', slug: 'legal', icon: 'cool', cont: 0 },
+        { name: 'Sexy', slug: 'sexy', icon: 'heart', cont: 0 },
+      ].map(({ name, slug, icon, cont }) => {
+        const total = props[cont] ? props[cont] : 2;
         return (
           <li key={`orkut__icon_set__${slug}`}>
             <span className="OrkutNostalgicIconSet__title">

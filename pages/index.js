@@ -1,9 +1,9 @@
-import MainGrid from '../src/components/MainGrid';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import Box from '../src/components/Box';
-import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
-import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
-import { useState } from 'react';
 import BoxRelations from '../src/components/BoxRelations';
+import MainGrid from '../src/components/MainGrid';
+import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
 
 function ProfileSidebar(props) {
   return (
@@ -13,6 +13,7 @@ function ProfileSidebar(props) {
         style={{ borderRadius: '8px' }} />
 
       <hr />
+
       <p>
         <a className="boxLink" href={`https://github.com/${props.githubUser}`} target="_blank">
           @{props.githubUser}
@@ -26,8 +27,22 @@ function ProfileSidebar(props) {
   );
 }
 
+const initialState = {
+  id: 0,
+  login: '',
+  name: '',
+  avatar_url: '',
+  following_url: '',
+  followers_url: '',
+  html_url: ''
+};
+
+
 export default function Home() {
-  const githubUser = 'eduardoranzzani';
+  const apiUrl = 'https://api.github.com/users/';
+  const username = 'eduardoranzzani';
+  const [githubUser, setGithubUser] = useState(initialState);
+  const [pessoas, setPessoas] = useState(initialState);
   const [comunidades, setComunidades] = useState([{
     id: 1,
     title: 'Eu odeio acordar cedo',
@@ -74,21 +89,38 @@ export default function Home() {
   }
   ];
 
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  function getUserData() {
+    axios.get(`${apiUrl}${username}`).then(response => {
+      setGithubUser(response.data);
+
+      const followers_url = response.data.followers_url;
+      getFollowers(followers_url);
+    }, console.error);
+  }
+
+  function getFollowers(url) {
+    axios.get(url).then(response => {
+      setPessoas(response.data);
+    }, console.error);
+  }
+
   return (
     <>
-      <AlurakutMenu githubUser={githubUser} />
+      <AlurakutMenu githubUser={githubUser.login} />
       <MainGrid>
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
-          <ProfileSidebar githubUser={githubUser} />
+          <ProfileSidebar githubUser={githubUser.login} />
         </div>
 
         <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
           <Box>
-            <h1 className="title">Bem vindo(a), {githubUser}</h1>
-
+            <h1 className="title">Bem vindo(a), {githubUser.name}</h1>
             <OrkutNostalgicIconSet />
           </Box>
-
 
           <Box>
             <h2 className="subtitle">O que você deseja fazer?</h2>
@@ -96,16 +128,13 @@ export default function Home() {
               e.preventDefault();
 
               const dadosForm = new FormData(e.target);
-              console.log("Campos: ",);
-              console.log("Campos: ",);
-
               const comunidade = {
                 id: new Date().toISOString(),
                 title: dadosForm.get('title'),
                 image: dadosForm.get('image'),
-              }
+              };
 
-              const comunidadesAtualizadas = [...comunidades, comunidade]
+              const comunidadesAtualizadas = [...comunidades, comunidade];
               setComunidades(comunidadesAtualizadas);
             }}>
               <div>
@@ -169,11 +198,11 @@ export default function Home() {
             </ul>
           </ProfileRelationsBoxWrapper> */}
 
-          <BoxRelations title="Pessoas da Comunidade" list={pessoasFavoritas} />
-          <BoxRelations title="Comunidades" list={comunidades} />
+          <BoxRelations title="Pessoas da Comunidade" list={pessoas} />
+          {/* <BoxRelations title="Comunidades" list={comunidades} /> */}
 
         </div>
       </MainGrid>
     </>
-  )
+  );
 }
