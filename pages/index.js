@@ -27,7 +27,7 @@ function ProfileSidebar(props) {
   );
 }
 
-const initialState = {
+const githubUserState = {
   id: 0,
   login: '',
   name: '',
@@ -37,57 +37,20 @@ const initialState = {
   html_url: ''
 };
 
+const communityState = {
+  id: 1,
+  title: 'Eu odeio acordar cedo',
+  image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
+  link: 'https://www.orkut.br.com/MainCommunity?cmm=10000'
+};
 
 export default function Home() {
   const apiUrl = 'https://api.github.com/users/';
   const username = 'eduardoranzzani';
-  const [githubUser, setGithubUser] = useState(initialState);
-  const [pessoas, setPessoas] = useState([initialState]);
-  const [comunidades, setComunidades] = useState([{
-    id: 1,
-    title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
-    link: 'https://www.orkut.br.com/MainCommunity?cmm=10000'
-  },
-  {
-    id: 2,
-    title: 'Teste',
-    image: 'https://picsum.photos/200?123',
-    link: ''
-  }]);
 
-  // const pessoasFavoritas = [{
-  //   id: 1,
-  //   title: 'juunegreiros',
-  //   image: 'https://github.com/juunegreiros.png',
-  //   link: '/users/juunegreiros'
-  // }, {
-  //   id: 2,
-  //   title: 'omariosouto',
-  //   image: 'https://github.com/omariosouto.png',
-  //   link: '/users/omariosouto'
-  // }, {
-  //   id: 3,
-  //   title: 'peas',
-  //   image: 'https://github.com/peas.png',
-  //   link: '/users/peas'
-  // }, {
-  //   id: 4,
-  //   title: 'rafaballerini',
-  //   image: 'https://github.com/rafaballerini.png',
-  //   link: '/users/rafaballerini'
-  // }, {
-  //   id: 5,
-  //   title: 'marcobrunodev',
-  //   image: 'https://github.com/marcobrunodev.png',
-  //   link: '/users/marcobrunodev'
-  // }, {
-  //   id: 6,
-  //   title: 'felipefialho',
-  //   image: 'https://github.com/felipefialho.png',
-  //   link: '/users/felipefialho'
-  // }
-  // ];
+  const [githubUser, setGithubUser] = useState(githubUserState);
+  const [pessoas, setPessoas] = useState([githubUserState]);
+  const [comunidades, setComunidades] = useState([communityState]);
 
   useEffect(() => {
     getUserData();
@@ -198,8 +161,8 @@ export default function Home() {
             </ul>
           </ProfileRelationsBoxWrapper> */}
 
-          <BoxRelations title="Pessoas da Comunidade" list={pessoas} />
-          {/* <BoxRelations title="Comunidades" list={comunidades} /> */}
+          <BoxRelations title="Pessoas da Comunidade" list={pessoas} community="false" />
+          <BoxRelations title="Comunidades" list={comunidades} community="true" />
 
         </div>
       </MainGrid>
