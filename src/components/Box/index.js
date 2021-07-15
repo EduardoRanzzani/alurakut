@@ -4,6 +4,8 @@ const Box = styled.div`
   background: #fff;
   border-radius: 8px;
   padding: 16px;
+  /* background-color: rgba(255, 255, 255, .30);
+  backdrop-filter: blur(5px);   */
   
   /* CSS pré pronto */ 
   margin-bottom: 10px;

@@ -15,7 +15,7 @@ export default function BoxRelations(props) {
           if (props.community) {
             return (
               <li key={itemAtual.id}>
-                <a href={itemAtual.link} key={itemAtual.title} target="_blank">
+                <a href={itemAtual.link} key={itemAtual.id} target="_blank">
                   <img src={itemAtual.image} />
                   <span>{itemAtual.title}</span>
                 </a>
@@ -36,16 +36,3 @@ export default function BoxRelations(props) {
     </ProfileRelationsBoxWrapper>
   );
 }
-
-// {
-//   props.list.map((itemAtual) => {
-//     return (
-//       <li key={itemAtual.id}>
-//         <a href={itemAtual.link} key={itemAtual.title} target="_blank">
-//           <img src={itemAtual.image} />
-//           <span>{itemAtual.title}</span>
-//         </a>
-//       </li>
-//     );
-//   });
-// }
