@@ -1,4 +1,6 @@
 import NextLink from 'next/link';
+import router from 'next/router';
+import nookies from 'nookies';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
@@ -35,7 +37,7 @@ export function AlurakutMenu({ githubUser }) {
         </nav>
 
         <nav>
-          <a href={`/logout`}>
+          <a onClick={e => logoff()}>
             Sair
           </a>
           <div>
@@ -219,7 +221,7 @@ export function AlurakutProfileSidebarMenuDefault() {
           <img src={`${BASE_URL}/icons/plus.svg`} />
           GitHub Trends
         </a>
-        <a href="/logout">
+        <a onClick={e => logoff()}>
           <img src={`${BASE_URL}//icons/logout.svg`} />
           Sair
         </a>
@@ -509,3 +511,8 @@ export const AlurakutStyles = css`
 
   ${AlurakutLoginScreen}
 `;
+
+function logoff() {
+  nookies.destroy(null, 'USER_TOKEN');
+  router.push('/login');
+}

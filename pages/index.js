@@ -1,4 +1,6 @@
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
+import nookies from 'nookies';
 import { useEffect, useState } from 'react';
 import Box from '../src/components/Box';
 import BoxRelations from '../src/components/BoxRelations';
@@ -33,9 +35,9 @@ const githubUserState = {
   html_url: ''
 };
 
-export default function Home() {
+export default function Home(props) {
   const apiUrl = 'https://api.github.com/users/';
-  const username = 'EduardoRanzzani';
+  const username = props.username;
   const tokenCMS = '4f1ae2ae001f9a10a1284cb1cef5b2';
 
   const [githubUser, setGithubUser] = useState(githubUserState);
@@ -214,4 +216,42 @@ export default function Home() {
       </MainGrid>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const cookies = nookies.get(context);
+  const token = cookies.USER_TOKEN;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permantent: false
+      }
+    };
+  }
+
+  const { isAuthenticated } = await axios.post('https://alurakut.vercel.app/api/auth', {}, {
+    headers: {
+      Authorization: token
+    }
+  }).then(res => {
+    return res.data;
+  });
+
+  if (!isAuthenticated) {
+    return {
+      redirect: {
+        destination: '/login',
+        permantent: false,
+      }
+    };
+  }
+
+  const githubUser = jwt.decode(token).githubUser;
+  return {
+    props: {
+      username: githubUser,
+    }
+  };
 }
